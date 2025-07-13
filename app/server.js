@@ -4,6 +4,19 @@ const livereload = require('livereload');
 const connectLiveReload = require('connect-livereload');
 const app = require('express')();
 const moment = require('moment');
+const { auth } = require('express-openid-connect');
+
+const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: 'c59350a8620f43b7165e7f9cfa7d9c2eed4fc01a756a3c92024fa07a967d38c4',
+    baseURL: 'http://localhost:3000',
+    clientID: 'LNVSyJTXJViWY9Ab1XYbdTcZ1aRQUabY',
+    issuerBaseURL: 'https://dev-rfekpozgrkct3b4l.us.auth0.com'
+};
+
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+app.use(auth(config));
 
 // Live Reload configuration
 const liveReloadServer = livereload.createServer();
